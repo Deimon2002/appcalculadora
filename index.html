@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 10px;
+            background-color: #00bbff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de Raíces Cuadráticas</h2>
+        <label for="a">Valor de a:</label>
+        <input type="number" id="a" placeholder="Ingrese valor de a">
+        
+        <label for="b">Valor de b:</label>
+        <input type="number" id="b" placeholder="Ingrese valor de b">
+        
+        <label for="c">Valor de c:</label>
+        <input type="number" id="c" placeholder="Ingrese valor de c">
+        
+        <button onclick="calcularRaices()">Calcular Raíces</button>
+        
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularRaices() {
+            // Obtenemos los valores de los inputs
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+            const c = parseFloat(document.getElementById('c').value);
+
+            // Verificamos que a no sea cero
+            if (a === 0) {
+                document.getElementById('resultado').innerHTML = "El valor de 'a' no puede ser cero.";
+                return;
+            }
+
+            // Calculamos el discriminante
+            const discriminante = b * b - 4 * a * c;
+
+            // Evaluamos las posibles soluciones
+            if (discriminante > 0) {
+                // Dos soluciones reales
+                const x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
+                const x2 = (-b - Math.sqrt(discriminante)) / (2 * a);
+                document.getElementById('resultado').innerHTML = `Las raíces son: x1 = ${x1.toFixed(2)}, x2 = ${x2.toFixed(2)}`;
+            } else if (discriminante === 0) {
+                // Una solución real
+                const x = -b / (2 * a);
+                document.getElementById('resultado').innerHTML = `La raíz es: x = ${x.toFixed(2)}`;
+            } else {
+                // Raíces complejas
+                const parteReal = (-b / (2 * a)).toFixed(2);
+                const parteImaginaria = (Math.sqrt(-discriminante) / (2 * a)).toFixed(2);
+                document.getElementById('resultado').innerHTML = `Las raíces son complejas: ${parteReal} ± ${parteImaginaria}i`;
+            }
+        }
+    </script>
+</body>
+</html>
